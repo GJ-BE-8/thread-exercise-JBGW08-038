@@ -16,14 +16,16 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 //TODO#1 Runnable interface을 implements(구현) 합니다.
-public class CounterHandler {
+public class CounterHandler implements Runnable{
     private final long countMaxSize;
 
     private long count;
 
-    public CounterHandler(long countMaxSize) {
+    public CounterHandler(long countMaxSize) throws IllegalAccessException {
         //TODO#2 countMaxSize <=0 이면 IllegalArgumentException()이 발생 합니다.
-
+        if (countMaxSize <= 0) {
+            throw new IllegalAccessException();
+        }
 
         this.countMaxSize = countMaxSize;
         this.count=0l;
@@ -38,7 +40,13 @@ public class CounterHandler {
          */
 
         do {
-
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            count++;
+            log.debug("thread:{},count:{}", Thread.currentThread().getName(), count);
         }while (count<countMaxSize);
     }
 }
