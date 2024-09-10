@@ -20,8 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 public class App 
 {
 
-    public static void main( String[] args )
-    {
+    public static void main( String[] args ) throws IllegalAccessException {
 
         //shardCounter 객체를 0으로 초기화 합니다.
         SharedCounter sharedCounter = new SharedCounter(0l);
